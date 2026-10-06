@@ -1,0 +1,227 @@
+# Lotus-II
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Separuh Rembulanku 🪷</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b0e14 0%, #1a1f2c 50%, #0d1117 100%);
+            color: #e6edf3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Container Kartu */
+        .card {
+            background: rgba(22, 27, 34, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 20px;
+            padding: 40px 25px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(12px);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+            animation: float 3s infinite ease-in-out;
+        }
+
+        h1 {
+            color: #f0e68c;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #c9d1d9;
+            margin-bottom: 18px;
+            text-align: justify;
+        }
+
+        .sub-text {
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Input Passcode */
+        .passcode-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        input[type="password"], input[type="text"] {
+            width: 80%;
+            padding: 12px 18px;
+            border-radius: 25px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            background: rgba(13, 17, 23, 0.9);
+            color: #f0e68c;
+            font-size: 1.1rem;
+            text-align: center;
+            outline: none;
+            letter-spacing: 3px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #f0e68c;
+            box-shadow: 0 0 12px rgba(240, 230, 140, 0.3);
+        }
+
+        button {
+            background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+            color: #0d1117;
+            font-weight: bold;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s transform, 0.3s box-shadow;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .error-msg {
+            color: #ff7b72;
+            font-size: 0.85rem;
+            display: none;
+            margin-top: -5px;
+        }
+
+        /* Halaman Teks Ucapan (Sembunyi dulu) */
+        #secret-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+
+        #secret-content.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .highlight {
+            color: #f0e68c;
+            font-weight: 600;
+        }
+
+        .highlight-lotus {
+            color: #e2a9f3;
+            font-weight: 600;
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-style: italic;
+            color: #8b949e;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. HALAMAN LOCK (SANDI) -->
+    <div class="card" id="lock-screen">
+        <div class="icon">🌙</div>
+        <h1>Pintu Rembulan</h1>
+        <p class="sub-text">Masukkan kata sandi rahasia untuk membuka pesan ini.</p>
+        
+        <div class="passcode-box">
+            <input type="password" id="passInput" placeholder="••••" autocomplete="off">
+            <span class="error-msg" id="errorMsg">Kata sandi salah, coba lagi ya sayang! 🌙</span>
+            <button onclick="checkPassword()">Buka Pesan</button>
+        </div>
+    </div>
+
+    <!-- 2. HALAMAN UCAPAN (TERBUNYI SEBELUM SANDI BENAR) -->
+    <div class="card" id="secret-content">
+        <div class="icon">🪷</div>
+        <h1>Happy Anniversary, Separuh Rembulanku</h1>
+        
+        <p>
+            Makasih banyak ya yank karna kamu masih mau buka hati buat aa, aa luar biasa seneng karna kamu masih mau dan masih sama selalu mendengarkan semua cerita aa. Aa luar biasa sayang sama kamu AAAAUUUUUUUUUUUUUUUU.
+        </p>
+        <p>
+            Kamu adalah rumah, tempat segala lelah menemukan tenang. Seperti <span class="highlight-lotus">Lotus</span> yang tenang tumbuh indah dan <span class="highlight">separuh rembulan</span> yang selalu menerangi malam, terima kasih sudah hadir mengisi setiap ruang dalam hidupku.
+        </p>
+        <p>
+            Semoga cerita yang kita susun hari ini dan seterusnya selalu dipenuhi bahagia, tawa, serta kasih yang tak pernah pudar.
+        </p>
+
+        <div class="signature">
+            — Dari yang selalu menyayangimu, <br><strong style="color: #f0e68c;">Aa Kasep</strong>
+        </div>
+    </div>
+
+    <script>
+        // SANdI RAHASIA
+        const passwordBenar = "1726"; 
+
+        function checkPassword() {
+            const inputVal = document.getElementById("passInput").value;
+            const errorMsg = document.getElementById("errorMsg");
+            const lockScreen = document.getElementById("lock-screen");
+            const secretContent = document.getElementById("secret-content");
+
+            if (inputVal === passwordBenar) {
+                // Sembunyikan halaman sandi
+                lockScreen.style.display = "none";
+                
+                // Tampilkan halaman ucapan dengan efek transisi
+                secretContent.classList.add("show");
+            } else {
+                errorMsg.style.display = "block";
+                document.getElementById("passInput").value = "";
+            }
+        }
+
+        // Bikin tombol Enter di HP/Keyboard juga bisa dipake buat submit
+        document.getElementById("passInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
